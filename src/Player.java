@@ -81,5 +81,4 @@ abstract class Player {
         }
         return game.getPlayer1().equals(this) ? game.getPlayer2() : game.getPlayer1();
     }
-
 }

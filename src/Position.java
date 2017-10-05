@@ -24,6 +24,11 @@ public class Position {
     }
 
     public boolean equals(Position p) {
-        return (this.x == p.getX() && this.y == p.getY());
+        return (p != null && this.x == p.getX() && this.y == p.getY());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.x + 10 * this.y;
     }
 }

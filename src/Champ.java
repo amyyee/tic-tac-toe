@@ -52,7 +52,7 @@ public class Champ extends Player {
             for (int i = 0; i < board.getN(); i++) {
                 // get position that has empty cells or this players moves
                 if (empty == null && board.isEmpty(i, i)) {
-                    empty = new Position(i, i);
+                    empty = board.getPosition(i, i);
                 } else if (board.get(i, i) == getOpponent().getValue()) {
                     empty = null;
                     break;
@@ -67,7 +67,7 @@ public class Champ extends Player {
             for (int i = 0; i < board.getN(); i++) {
                 // get position that has empty cells or this players moves
                 if (empty == null && board.isEmpty(board.getN() - 1 - i, i)) {
-                    empty = new Position(board.getN() - 1 - i, i);
+                    empty =  board.getPosition(board.getN() - 1 - i, i);
                 } else if (board.get(board.getN() - 1 - i, i) == getOpponent().getValue()) {
                     empty = null;
                     break;
@@ -84,7 +84,7 @@ public class Champ extends Player {
                 for (int j = 0; j < board.getN(); j++) {
                     // get position that has empty cells or this players moves
                     if (empty == null && board.isEmpty(i, j)) {
-                        empty = new Position(i, j);
+                        empty = board.getPosition(i, j);
                     } else if (board.get(i, j) == getOpponent().getValue()) {
                         empty = null;
                         break;
@@ -100,7 +100,7 @@ public class Champ extends Player {
                 for (int i = 0; i < board.getN(); i++) {
                     // get position that has empty cells or this players moves
                     if (empty == null && board.isEmpty(i, j)) {
-                        empty = new Position(i, j);
+                        empty = board.getPosition(i, j);
                     } else if (board.get(i, j) == getOpponent().getValue()) {
                         empty = null;
                         break;

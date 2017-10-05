@@ -273,9 +273,9 @@ public class TicTacToe {
             } else if (Math.abs(sumCol) == board.getN()) {
                 return sumCol > 0 ? player1 : player2;
             } else if (Math.abs(sumDiag1) == board.getN()) {
-                return sumDiag1 ? player1 : player2;
+                return sumDiag1 > 0 ? player1 : player2;
             } else if (Math.abs(sumDiag2) == board.getN()) {
-                return sumDiag2 ? player1 : player2;
+                return sumDiag2 > 0 ? player1 : player2;
             }
         }
         // no winner
@@ -287,7 +287,6 @@ public class TicTacToe {
         int sumDiag1 = 0;
         int sumDiag2 = 0;
         for (int i = 0; i < board.getN(); i++) {
-
             int sumRow = 0;
             int sumCol = 0;
             for (int j = 0; j < board.getN(); j++) {
@@ -304,32 +303,31 @@ public class TicTacToe {
                 // get empty cell in row i
                 for (int col = 0; col < board.getN(); col++) {
                     if (board.isEmpty(i, col)) {
-                        return new Position(i, col);
+                        return board.getPosition(i, col);
                     }
                 }
             } else if (sumCol == (board.getN() - 1) * p.getValue()) {
                 // get empty cell in col i
                 for (int row = 0; row < board.getN(); row++) {
                     if (board.isEmpty(row, i)) {
-                        return new Position(row, i);
+                        return board.getPosition(row, i);
                     }
                 }
             } else if (sumDiag1 == (board.getN() - 1) * p.getValue()) {
                 //get empty cell in diagonal 1
                 for (int a = 0; a < board.getN(); a++) {
                     if (board.isEmpty(a, a)) {
-                        return new Position(a, a);
+                        return board.getPosition(a, a);
                     }
                 }
             } else if (sumDiag2 == (board.getN() - 1) * p.getValue()) {
-                //get empty cell in diagonal 1
+                //get empty cell in diagonal 2
                 for (int a = 0; a < board.getN(); a++) {
-                    if (board.isEmpty(board.getN() - 1 - a, a)) {
-                        return new Position(a, a);
+                    if (board.isEmpty(a, board.getN() - 1 - a)) {
+                        return board.getPosition(a, a);
                     }
                 }
             }
-
         }
         // no winning move
         return null;
@@ -339,11 +337,9 @@ public class TicTacToe {
     // true: if game is still winnable by either player 1 or player2
     // false: if game will end in draw. this is when every row, col, and diag as both player 1 and player 2 occupied
     //        in one of the positions
-    //
-    //
     public boolean isWinnable() {
-        boolean hasPlayer1 = false;
-        boolean hasPlayer2 = false;
+        boolean hasPlayer1;
+        boolean hasPlayer2;
         for (int i = 0; i < board.getN(); i++) {
             hasPlayer1 = false;
             hasPlayer2 = false;
@@ -402,6 +398,24 @@ public class TicTacToe {
             return true;
         }
 
+        return false;
+    }
+
+    public boolean playerIsInRow(int row, Player player) {
+        for (int i = 0 ; i < board.getN(); i++) {
+            if (board.get(row, i) == player.getValue()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean playerIsInCol(int col, Player player) {
+        for (int i = 0 ; i < board.getN(); i++) {
+            if (board.get(i, col) == player.getValue()) {
+                return true;
+            }
+        }
         return false;
     }
 

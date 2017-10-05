@@ -43,6 +43,6 @@ public class Human extends Player {
         } else {
             System.out.println("You selected row:" + row + ", col:" + col);
         }
-        return new Position(row - 1, col - 1);
+        return b.getPosition(row - 1, col - 1);
     }
 }
