@@ -243,6 +243,7 @@ public class TicTacToe {
             System.out.println("Draw. No winner");
         } else if (winner != null) {
             System.out.println(winner.getName() + " won!");
+            gameStarted = false;
         } else {
             System.out.print("Game still in process. ");
             if (isWinnable()) {
@@ -326,7 +327,7 @@ public class TicTacToe {
                 //get empty cell in diagonal 2
                 for (int a = 0; a < board.getN(); a++) {
                     if (board.isEmpty(a, board.getN() - 1 - a)) {
-                        return board.getPosition(a, a);
+                        return board.getPosition(a, board.getN() - 1 - a);
                     }
                 }
             }
