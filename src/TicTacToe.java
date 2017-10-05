@@ -20,7 +20,6 @@ public class TicTacToe {
     private Player player2;
     private Scanner scInput;
     private int movesLeft;
-    private boolean gameStarted = false;
 
     TicTacToe() { // default constructor is command line
         board = new Board();
@@ -75,7 +74,6 @@ public class TicTacToe {
     public void startGame() {
         board.clearBoard();
         movesLeft = board.getN() * board.getN();
-        gameStarted = true;
     }
 
     public void quitGame() {
@@ -85,13 +83,10 @@ public class TicTacToe {
     // display the text based menu
     public boolean printMenu() {
         System.out.println("=====================================");
-        if (!gameStarted) {
-            System.out.println("1 - Start new game");
-        } else {
-            System.out.println("2 - Complete a move");
-            System.out.println("3 - Determine if there is a winner or if game is not winnable");
-            System.out.println("4 - Quit game");
-        }
+        System.out.println("1 - Start new game");
+        System.out.println("2 - Complete a move");
+        System.out.println("3 - Determine if there is a winner or if game is not winnable");
+        System.out.println("4 - Quit game");
         System.out.println("=====================================");
 
         String response = "";
@@ -99,7 +94,7 @@ public class TicTacToe {
             System.out.println("Please select number from the menu:");
             System.out.print(">");
             response = scInput.next();
-        } while (!((gameStarted && response.matches("[234]")) || (!gameStarted && response.matches("[1]"))));
+        } while (!(response.matches("[1234]")));
 
         int responseInt = new Integer(response);
         switch (responseInt) {
@@ -175,10 +170,8 @@ public class TicTacToe {
         // check if game is over
         if (checkWin()) {
             System.out.println("Game is over. Please start new game.");
-
         } else if (movesLeft <= 0) {
             System.out.println("Game is over. No more moves");
-
         } else {
             // game is not over, player1 make move
             printBoard();
@@ -243,7 +236,6 @@ public class TicTacToe {
             System.out.println("Draw. No winner");
         } else if (winner != null) {
             System.out.println(winner.getName() + " won!");
-            gameStarted = false;
         } else {
             System.out.print("Game still in process. ");
             if (isWinnable()) {
