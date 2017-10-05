@@ -20,6 +20,7 @@ public class TicTacToe {
     private Player player2;
     private Scanner scInput;
     private int movesLeft;
+    private boolean gameStarted = false;
 
     TicTacToe() { // default constructor is command line
         board = new Board();
@@ -74,6 +75,7 @@ public class TicTacToe {
     public void startGame() {
         board.clearBoard();
         movesLeft = board.getN() * board.getN();
+        gameStarted = true;
     }
 
     public void quitGame() {
@@ -83,36 +85,36 @@ public class TicTacToe {
     // display the text based menu
     public boolean printMenu() {
         System.out.println("=====================================");
-        System.out.println("1 - Start new game");
-        System.out.println("2 - Select an opponent");
-        System.out.println("3 - Complete a move");
-        System.out.println("4 - Determine if there is a winner or if game is not winnable");
-        System.out.println("5 - Quit game");
+        if (!gameStarted) {
+            System.out.println("1 - Start new game");
+        } else {
+            System.out.println("2 - Complete a move");
+            System.out.println("3 - Determine if there is a winner or if game is not winnable");
+            System.out.println("4 - Quit game");
+        }
         System.out.println("=====================================");
 
         String response = "";
         do {
-            System.out.println("Please select an item 1 to 5 from menu:");
+            System.out.println("Please select number from the menu:");
             System.out.print(">");
             response = scInput.next();
-        } while (!response.matches("[12345]"));
+        } while (!((gameStarted && response.matches("[234]")) || (!gameStarted && response.matches("[1]"))));
 
         int responseInt = new Integer(response);
         switch (responseInt) {
             case 1:
                 startGame();
-                break;
-            case 2:
                 player2 = choosePlayer();
                 player2.setValue(PLAYER2_VAL);
                 break;
-            case 3:
+            case 2:
                 makeMove();
                 break;
-            case 4:
+            case 3:
                 displayResults();
                 break;
-            case 5:
+            case 4:
                 quitGame();
                 return false;
         }
